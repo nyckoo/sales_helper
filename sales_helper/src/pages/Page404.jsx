@@ -1,12 +1,10 @@
-import { Hero, Button } from "../components";
+import styles from "../style";
+import { BadRequest } from "../components";
 
 const Page404 = () => (
-    <div className={`bg-primary ${styles.flexStart}`}>
-        <div className={`${styles.boxWidth}`}>
-            <h3>There's Error page (404)</h3>
-            <Hero />
-        </div>
+    <div className={`${styles.boxWidth}`}>
+        <BadRequest />
     </div>
-)
+);
 
-export default Page404
+export default Page404;

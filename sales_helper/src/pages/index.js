@@ -1,2 +1,9 @@
-export { default as Default } from './Default';
-export { default as Page404 } from './Page404';
+import Default from "./Default";
+import Dashboard from "./Dashboard";
+import Page404 from "./Page404";
+
+export {
+    Default,
+    Dashboard,
+    Page404
+};
