@@ -1,5 +1,4 @@
 import Navbar from "./Navbar";
-import Offers from "./Offers";
 import Billing from "./Billing";
 import CardDeal from "./CardDeal";
 import Business from "./Business";
@@ -9,10 +8,13 @@ import Stats from "./Stats";
 import Footer from "./Footer";
 import Testimonials from "./Testimonials";
 import Hero from "./Hero";
+import Login from "./Login";
+import OffersList from "./Offers";
+import UsersList from "./Users";
+import RequireAuth from "./RequireAuth";
 
 export {
   Navbar,
-  Offers,
   Billing,
   CardDeal,
   Business,
@@ -22,4 +24,8 @@ export {
   Footer,
   Testimonials,
   Hero,
+  Login,
+  OffersList,
+  UsersList,
+  RequireAuth
 };

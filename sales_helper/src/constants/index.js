@@ -68,7 +68,7 @@ export const stats = [
   }
 ];
 
-export const offers = [
+export const staticOffers = [
   {
     uuid: "1",
     title: "Backend Software Developer",
@@ -89,7 +89,7 @@ export const offers = [
   },
 ];
 
-export const users = [
+export const staticUsers = [
   {
     name: "George",
     surname: "Harz",
@@ -106,6 +106,18 @@ export const users = [
     name: "Linda",
     surname: "Ramon",
     position: "Devops",
+    is_busy: true
+  },
+  {
+    name: "Hanz",
+    surname: "Simons",
+    position: "Tester",
+    is_busy: false
+  },
+  {
+    name: "Jimmy",
+    surname: "Kingston",
+    position: "Frontend",
     is_busy: true
   }
 ];

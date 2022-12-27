@@ -1,31 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 
 import { close, logo, menu } from "../assets";
 import { navLinks } from "../constants";
-import Button from "./Button";
 
 const Navbar = () => {
 
   const [active, setActive] = useState("");
-  // window.location.pathname
-  // navLinks.forEach(element => {
-  //   console.log(window.location.pathname);
-  //   if (window.location.pathname == element.link) {
-  //     console.log(element.title);
-  //     return element.title;
-  //   }
-  // })
   const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    navLinks.map(element => {
+      if (location.pathname == element.link) {
+        setActive(element.title);
+      }
+    })
+  });
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
       <img src={logo} alt="hoobank" className="w-[96px] h-[52px]" />
 
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
-        <li>
-          <Button styles={`mr-10`} />
-        </li>
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}

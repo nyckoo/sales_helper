@@ -1,9 +1,10 @@
 //import styles from "../style";
-import { Offers } from "../components";
+import { OffersList, UsersList } from "../components";
 
 const Dashboard = () => (
     <div>
-        <Offers />
+        <OffersList />
+        <UsersList />
     </div>
 );
 

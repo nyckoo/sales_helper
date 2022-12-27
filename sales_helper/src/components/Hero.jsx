@@ -1,6 +1,6 @@
 import styles from "../style";
 import { matcher_main } from "../assets";
-import GetStarted from "./GetStarted";
+import SignIn from "./SignIn";
 
 const Hero = () => (
   <section id="home" className={`flex md:flex-row flex-col ${styles.paddingY}`}>
@@ -19,7 +19,7 @@ const Hero = () => (
           <span className="text-gradient">Job & Developer</span>{" "}
         </h1>
         <div className="ss:flex hidden md:mr-4 mr-0">
-          <GetStarted />
+          <SignIn />
         </div>
       </div>
 

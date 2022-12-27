@@ -7,12 +7,12 @@ const Business = () => (
     <div className={layout.sectionInfo}>
       <h2 className={styles.heading2}>
         You do the business, <br className="sm:block hidden" /> we’ll handle
-        the money.
+        the people.
       </h2>
       <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-        With the right credit card, you can improve your financial life by
-        building credit, earning rewards and saving money. But with hundreds
-        of credit cards on the market.
+        Without having to worry about the right candidates
+        and fully relying on searching algorithm that is created for only this reason -
+        you're all set to plan your company growth!
       </p>
 
       <Button styles={`mt-10`} />
