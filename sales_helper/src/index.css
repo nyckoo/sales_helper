@@ -17,17 +17,16 @@
 }
 
 .text-gradient {
-  background: radial-gradient(64.18% 64.18% at 71.16% 35.69%,
-      #e0fade 0.89%,
-      #c0f5be 17.23%,
-      #9df09d 42.04%,
-      #81eb7d 55.12%,
-      #5ce65c 75.54%,
+  background: radial-gradient(95.18% 47.18% at 51.64% 21.69%,
+      #e0fade 5.89%,
+      #c0f5be 19.23%,
+      #9df09d 41.04%,
+      #81eb7d 57.12%,
+      #5ce65c 73.54%,
       #5aeb47 92.78%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
 }
 
 .bg-green-gradient {
@@ -44,24 +43,24 @@
   background: linear-gradient(144.39deg,
       #ffffff -278.56%,
       #6d6d6d -78.47%,
-      #11101d 91.61%);
+      #101d10 91.61%);
 }
 
 .bg-black-gradient-2 {
   background: linear-gradient(-168.39deg,
       #ffffff -278.56%,
       #6d6d6d -78.47%,
-      #11101d 91.61%);
+      #101d10 91.61%);
 }
 
 .bg-gray-gradient {
   background: linear-gradient(153.47deg,
       rgba(255, 255, 255, 0) -341.94%,
-      #14101d 95.11%);
+      #121d10 95.11%);
 }
 
-.bg-discount-gradient {
-  background: linear-gradient(125.17deg, #272727 0%, #101d11 100%);
+.bg-extra-gradient {
+  background: linear-gradient(125.17deg, #272727 0%, #101d10 100%);
 }
 
 .box-shadow {
@@ -102,16 +101,8 @@
   box-shadow: var(--card-shadow);
 }
 
-.feedback-container .feedback-card:last-child {
+.feedback-container {
   margin-right: 0px;
-}
-
-.feedback-card {
-  background: transparent;
-}
-
-.feedback-card:hover {
-  background: var(--black-gradient);
 }
 
 .green__gradient {

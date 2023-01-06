@@ -1,7 +1,7 @@
 import styles from "../style";
 import { arrowUpRight } from "../assets";
 
-const GetStarted = () => (
+const SignIn = () => (
   <div className={`${styles.flexCenter} w-[120px] h-[120px] rounded-full bg-green-gradient p-[2px] cursor-pointer`}>
     <div className={`${styles.flexCenter} flex-col bg-primary w-[100%] h-[100%] rounded-full`}>
       <p className="font-poppins font-medium text-[18px] leading-[23.4px]">
@@ -18,4 +18,4 @@ const GetStarted = () => (
   </div>
 );
 
-export default GetStarted;
+export default SignIn;

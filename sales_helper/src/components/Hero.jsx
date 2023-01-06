@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import styles from "../style";
 import { matcher_main } from "../assets";
 import SignIn from "./SignIn";
@@ -19,7 +21,7 @@ const Hero = () => (
           <span className="text-gradient">Job & Developer</span>{" "}
         </h1>
         <div className="ss:flex hidden md:mr-4 mr-0">
-          <SignIn />
+          <Link to="/login"><SignIn /></Link>
         </div>
       </div>
 
@@ -33,7 +35,7 @@ const Hero = () => (
     </div>
 
     <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
-      <img src={matcher_main} alt="billing" className="w-[100%] h-[100%] z-[5]" />
+      <img src={matcher_main} className="w-[100%] h-[100%] z-[5]" />
 
       {/* gradient start */}
       <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />

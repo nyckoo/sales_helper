@@ -1,21 +1,38 @@
 import { staticOffers } from "../constants";
 import React, { useState } from "react";
 import { axiosInstance } from "../axios";
-import { layout } from "../style";
-import { arrowDown, arrowUp } from "../assets";
+import UsersQueryList from "./UsersQuery";
+import styles, { layout } from "../style";
+import { arrowDown, arrowUp, magnifyingGlass } from "../assets";
+import Button from "./Button";
 
-const OfferCard = ({ uuid, title, skills, index }) => {
+const OfferCard = ({ uuid, title, skills, description, index }) => {
   const [toggle, setToggle] = useState(false);
-  const desc = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
   return (
-    <div className={`flex flex-row p-6 rounded-[20px] ${index !== staticOffers.length - 1 ? "mb-6" : "mb-0"} offers-card`}>
-      {/* <div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimGreen`}>
-      <img src={icon} alt="star" className="w-[50%] h-[50%] object-contain" />
-    </div> */}
+    <div className={`flex flex-row p-2 rounded-[20px] ${index !== 4 ? "mb-6" : "mb-0"} offers-card`}>
+      <div className={`${styles.flexBetweenCol}`}>
+        <div className={`${styles.flexCenter} flex-col min-w-[80px] h-[80px] rounded-full bg-extra-gradient`}>
+          <img src={magnifyingGlass} alt="star" className="w-[50%] h-[50%] object-contain" />
+          <p className="text-oldWhite text-[12px]">Search</p>
+        </div>
+        <div className={`${styles.flexBetweenCol} h-[160px] mb-[2px]`}>
+          <div className={`${styles.flexCenter} flex-col w-[60px] h-[60px] rounded-full bg-extra-gradient`}>
+            <img src={arrowUp} alt="star" className="w-[50%] h-[50%] object-contain" />
+            <p className="text-oldWhite text-[12px]">Up</p>
+          </div>
+          <div className={`${styles.flexCenter} flex-col w-[60px] h-[60px] rounded-full bg-extra-gradient`}>
+            <img src={arrowDown} alt="star" className="w-[50%] h-[50%] object-contain" />
+            <p className="text-oldWhite text-[12px]">Down</p>
+          </div>
+        </div>
+      </div>
       <div className="flex flex-col ml-3 mr-3">
         <div>
           <div className="flex-1 flex flex-row">
-            <img src={toggle ? arrowUp : arrowDown} alt="arrow-down" className="w-[23px] h-[23px] object-contain mr-3" onClick={() => setToggle(!toggle)} />
+            <img src={toggle ? arrowUp : arrowDown} alt="arrow-down" className="w-[24px] h-[24px] object-contain mr-3"
+              onClick={() => {
+                setToggle(!toggle)
+              }} />
             <h4 className="font-poppins font-semibold text-oldWhite text-[12px] leading-[23.4px] mb-1">
               ID: {uuid}
             </h4>
@@ -31,54 +48,57 @@ const OfferCard = ({ uuid, title, skills, index }) => {
         </div>
         <h6
           className={`${!toggle ? "hidden" : "flex"
-            } text-oldWhite text-[14px] top-20 right-0 my-2 min-w-[140px] max-w-[960px] rounded-md`}
-        >{desc}</h6>
+            } text-oldWhite text-[14px] my-2 min-w-[140px] max-w-[960px] rounded-md`}
+        >{description}</h6>
+        <div className="py-2 font-poppins font-medium text-dimWhite">
+          <input className={styles.inputField} placeholder=" Type User Name" />
+        </div>
+        <div>
+          <UsersQueryList />
+        </div>
       </div>
     </div>
   );
 };
 
-const Offers = ({ offers }) => (
-  <section id="offers" className={layout.section}>
-    <div className={`${layout.sectionInfo} flex-col`}>
-      {offers.map((offer, index) => (
-        <OfferCard key={offer.uuid} {...offer} index={index} />
-      ))}
-    </div>
-
-    {/* <div className={layout.sectionInfo}>
-      <h2 className={styles.heading2}>
-        headline text
-      </h2>
-      <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-        desc text
-      </p>
-
-      <Button styles={`mt-10`} />
-    </div> */}
-  </section>
-);
+const Offers = ({ offers, category }) => {
+  const [category, setCategory] = useState("");
+  console.log(category);
+  return (
+    <section id="offers" className={layout.section}>
+      <div className={`${layout.sectionInfo} flex-col`}>
+        <h2 className={`${styles.heading2} m-2`}>Current Offers</h2>
+        <div className={`flex flex-row p-2 text-oldWhite`}>
+          <Button content="Frontend" id="frontend" onClick={() => setCategory("frontend")} />
+          <Button content="Backend" id="backend" onClick={() => setCategory("backend")} />
+          <Button content="Fullstack" id="fullstack" onClick={() => setCategory("fullstack")} />
+          <Button content="Mobile" id="mobile" onClick={() => setCategory("mobile")} />
+        </div>
+        {offers.map((offer, index) => (
+          <OfferCard key={offer.uuid} {...offer} index={index} />
+        ))}
+      </div>
+    </section>
+  )
+};
 
 export default class OffersList extends React.Component {
   state = {
-    offers: []
+    offers: [],
+    category: ""
   }
 
   async componentDidMount() {
-    // fetch(`https://API_LINK/offers`)
-    // .then((response) => response.json())
-    // .then((data) => {
-    //  console.log(data);
     const offers = staticOffers;
     this.setState({ offers });
-    // }).catch((err) => {
-    // console.log(err.message);
-    // });
+    // const response = await axiosInstance.get("/offers/?category=backend&skip=10&limit=5");
+    // console.log(response.data);
+    // this.setState({ offers: response.data });
   }
 
   render() {
     return (
-      <Offers offers={this.state.offers} />
+      <Offers offers={this.state.offers} category={this.state.category} />
     );
   }
 };

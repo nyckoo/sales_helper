@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import styles, { layout } from '../style';
 
 import useAuth from '../hooks/useAuth';
 import { axiosInstance } from '../axios';
@@ -61,38 +62,36 @@ const Login = () => {
     }
 
     return (
-        <section>
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
-                    required
-                />
+        <section ig="login" className={`${layout.section}`}>
+            <div className={`${layout.sectionInfo} flex-col`}>
+                <p className={`${styles.paragraph} max-w-[470px] mt-5 ${errMsg ? "errmsg" : "offscreen"}`} ref={errRef} aria-live="assertive">{errMsg}</p>
+                <h2 className={styles.heading2}>Sign In</h2>
 
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={pwd}
-                    required
-                />
-                <button>Sign In</button>
-            </form>
-            <p>
-                Need an Account?<br />
-                <span className="line">
-                    {/*put router link here*/}
-                    <a href="#">Sign Up</a>
-                </span>
-            </p>
+                <form onSubmit={handleSubmit}>
+                    <label className="text-oldWhite" htmlFor="username">Username: </label>
+                    <input
+                        className={styles.inputField}
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                    />
+                    <label className="text-oldWhite" htmlFor="password">Password: </label>
+                    <input
+                        className={styles.inputField}
+                        type="password"
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                    />
+                    <button className='font-poppins font-medium text-[16px] text-oldWhite bg-green-gradient rounded-[10px] p-[5px]' type="submit">Log In</button>
+                </form>
+            </div>
+
         </section>
     )
 }

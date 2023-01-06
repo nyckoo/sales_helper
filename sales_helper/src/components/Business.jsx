@@ -1,4 +1,5 @@
-import { features } from "../constants";
+import { Link } from "react-router-dom";
+
 import styles, { layout } from "../style";
 import Button from "./Button";
 
@@ -15,14 +16,8 @@ const Business = () => (
         you're all set to plan your company growth!
       </p>
 
-      <Button styles={`mt-10`} />
+      <Link to="/login"><Button styles="mt-10" content={"Log in"} /></Link>
     </div>
-
-    {/* <div className={`${layout.sectionImg} flex-col`}>
-      {features.map((feature, index) => (
-        <FeatureCard key={feature.id} {...feature} index={index} />
-      ))}
-    </div> */}
   </section>
 );
 
