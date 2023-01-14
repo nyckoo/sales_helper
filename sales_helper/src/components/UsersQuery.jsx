@@ -24,7 +24,7 @@ export default class UsersQueryList extends React.Component {
     render() {
         return (
             <>
-                <div className="flex flex-col users-card">
+                <div className="flex flex-col">
                     {this.state.users.map((user, index) => (
                         <div className="items-center font-medium text-dimWhite flex flex-row mt-1" key={index}>
                             <div className={`min-w-[40px] h-[30px] rounded-full ${styles.flexCenter} bg-extra-gradient`}>

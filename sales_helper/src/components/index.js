@@ -5,7 +5,7 @@ import Stats from "./Stats";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Login from "./Login";
-import ModalWindow from "./ModalForm";
+import ModalWindow from "./ModalAddUserForm";
 import OffersList from "./Offers";
 import UsersList from "./Users";
 import UsersQueryList from "./UsersQuery";

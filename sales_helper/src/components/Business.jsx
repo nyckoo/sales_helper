@@ -16,7 +16,7 @@ const Business = () => (
         you're all set to plan your company growth!
       </p>
 
-      <Link to="/login"><Button styles="mt-10" content={"Log in"} /></Link>
+      <Link to="/login"><Button type="button" styles="mt-10" content={"Log in"} /></Link>
     </div>
   </section>
 );

@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles, { layout } from '../style';
+import Button from "./Button";
 
 import useAuth from '../hooks/useAuth';
 import { axiosInstance } from '../axios';
@@ -42,8 +43,7 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
+            setAuth({ user, pwd, accessToken });
             setUser('');
             setPwd('');
             navigate(from, { replace: true });
@@ -62,33 +62,36 @@ const Login = () => {
     }
 
     return (
-        <section ig="login" className={`${layout.section}`}>
+        <section id="login" className={`${layout.section}`}>
             <div className={`${layout.sectionInfo} flex-col`}>
-                <p className={`${styles.paragraph} max-w-[470px] mt-5 ${errMsg ? "errmsg" : "offscreen"}`} ref={errRef} aria-live="assertive">{errMsg}</p>
-                <h2 className={styles.heading2}>Sign In</h2>
-
+                <h2 className={`${styles.heading2} mb-5`}>Sign In</h2>
                 <form onSubmit={handleSubmit}>
-                    <label className="text-oldWhite" htmlFor="username">Username: </label>
-                    <input
-                        className={styles.inputField}
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setUser(e.target.value)}
-                        value={user}
-                        required
-                    />
-                    <label className="text-oldWhite" htmlFor="password">Password: </label>
-                    <input
-                        className={styles.inputField}
-                        type="password"
-                        id="password"
-                        onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
-                        required
-                    />
-                    <button className='font-poppins font-medium text-[16px] text-oldWhite bg-green-gradient rounded-[10px] p-[5px]' type="submit">Log In</button>
+                    <div className="py-1">
+                        <label className="text-oldWhite text-[18px] p-2" htmlFor="username">Username: </label>
+                        <input
+                            className={styles.inputField}
+                            type="text"
+                            id="username"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e) => setUser(e.target.value)}
+                            value={user}
+                            required
+                        />
+                    </div>
+                    <div className="py-1">
+                        <label className="text-oldWhite text-[18px] p-2" htmlFor="password">Password: &nbsp;</label>
+                        <input
+                            className={styles.inputField}
+                            type="password"
+                            id="password"
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                        />
+                    </div>
+                    <p className={`${styles.paragraph} max-w-[470px] mt-5 ${errMsg ? "errmsg" : "offscreen"}`} ref={errRef} aria-live="assertive">{errMsg}</p>
+                    <Button styles="mt-10" content={"Log in"} type="submit" />
                 </form>
             </div>
 

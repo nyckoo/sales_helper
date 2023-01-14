@@ -10,8 +10,11 @@ const styles = {
   flexBetweenCol: "flex flex-col justify-between items-center",
 
   iconHover: "rounded-md hover:bg-neutral-600",
-  modalBg: "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity overscroll-auto",
-  inputField: "bg-transparent border-[2px] border-oldWhite text-[14px] leading-[26px] rounded-md",
+  clickFocus: "focus:ring focus:ring-neutral-300 m-2",
+  clickEnabled: "ring ring-neutral-300",
+  modalBg: "flex fixed inset-0 bg-stone-900 bg-opacity-75 justify-center items-center",
+  modalContainer: "flex-column md:w-[500px] md:h-[500px] p-5 bg-zinc-800 bg-opacity-75 rounded-[10px]",
+  inputField: "bg-transparent border-[2px] border-oldWhite text-[16px] text-dimWhite leading-[26px] rounded-md",
 
   paddingX: "sm:px-16 px-6",
   paddingY: "sm:py-16 py-6",

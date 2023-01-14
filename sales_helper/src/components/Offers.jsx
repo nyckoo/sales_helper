@@ -1,10 +1,10 @@
-import { staticOffers } from "../constants";
-import React, { useState } from "react";
+import { staticOffers, filterButtons } from "../constants";
+import React, { useState, useEffect, useContext } from "react";
 import { axiosInstance } from "../axios";
+import axios from "axios";
 import UsersQueryList from "./UsersQuery";
 import styles, { layout } from "../style";
-import { arrowDown, arrowUp, magnifyingGlass } from "../assets";
-import Button from "./Button";
+import { arrowDown, arrowUp, magnifyingGlass, rightArrow, leftArrow } from "../assets";
 
 const OfferCard = ({ uuid, title, skills, description, index }) => {
   const [toggle, setToggle] = useState(false);
@@ -12,16 +12,16 @@ const OfferCard = ({ uuid, title, skills, description, index }) => {
     <div className={`flex flex-row p-2 rounded-[20px] ${index !== 4 ? "mb-6" : "mb-0"} offers-card`}>
       <div className={`${styles.flexBetweenCol}`}>
         <div className={`${styles.flexCenter} flex-col min-w-[80px] h-[80px] rounded-full bg-extra-gradient`}>
-          <img src={magnifyingGlass} alt="star" className="w-[50%] h-[50%] object-contain" />
+          <img src={magnifyingGlass} className="w-[50%] h-[50%] object-contain" />
           <p className="text-oldWhite text-[12px]">Search</p>
         </div>
         <div className={`${styles.flexBetweenCol} h-[160px] mb-[2px]`}>
           <div className={`${styles.flexCenter} flex-col w-[60px] h-[60px] rounded-full bg-extra-gradient`}>
-            <img src={arrowUp} alt="star" className="w-[50%] h-[50%] object-contain" />
+            <img src={arrowUp} className="w-[50%] h-[50%] object-contain" />
             <p className="text-oldWhite text-[12px]">Up</p>
           </div>
           <div className={`${styles.flexCenter} flex-col w-[60px] h-[60px] rounded-full bg-extra-gradient`}>
-            <img src={arrowDown} alt="star" className="w-[50%] h-[50%] object-contain" />
+            <img src={arrowDown} className="w-[50%] h-[50%] object-contain" />
             <p className="text-oldWhite text-[12px]">Down</p>
           </div>
         </div>
@@ -61,44 +61,61 @@ const OfferCard = ({ uuid, title, skills, description, index }) => {
   );
 };
 
-const Offers = ({ offers, category }) => {
-  const [category, setCategory] = useState("");
-  console.log(category);
+const OffersList = () => {
+  const [offers, setOffers] = useState([]);
+  const [cat, setCat] = useState(null);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => { //async api call
+    const getOffers = async () => {
+      try {
+        const url = `/offers/?category=${cat}&skip=${page - 1}&limit=5`;
+        const { data } = await axiosInstance.get(url);
+        console.log(data);
+        setOffers(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getOffers();
+  }, [cat, page]);
+
+  const limitPagination = (pageNr) => {
+    return pageNr < 1 ? 1 : pageNr
+  };
+  // async function setCategory(e) {
+  //   let category = e.target.name;
+  //   let skip = 0;
+  //   const response = await axiosInstance.get(url);
+  //   console.log(response.data);
+  //   setOffers(response.data);
+  //   // let filtered = staticOffers.filter(({ category }) => category === type);
+  //   // setOffers(filtered);
+
+  // }
+
   return (
-    <section id="offers" className={layout.section}>
+    <section className={layout.section}>
       <div className={`${layout.sectionInfo} flex-col`}>
         <h2 className={`${styles.heading2} m-2`}>Current Offers</h2>
-        <div className={`flex flex-row p-2 text-oldWhite`}>
-          <Button content="Frontend" id="frontend" onClick={() => setCategory("frontend")} />
-          <Button content="Backend" id="backend" onClick={() => setCategory("backend")} />
-          <Button content="Fullstack" id="fullstack" onClick={() => setCategory("fullstack")} />
-          <Button content="Mobile" id="mobile" onClick={() => setCategory("mobile")} />
-        </div>
-        {offers.map((offer, index) => (
-          <OfferCard key={offer.uuid} {...offer} index={index} />
-        ))}
+        <>
+          <div id="buttons" className={`flex-1 flex-row p-2 text-oldWhite w-screen`}>
+            {filterButtons && filterButtons.map(({ uuid, content, type }) => (
+              <button className={`py-3 px-4 font-poppins font-medium text-[16px] text-oldWhite bg-extra-gradient rounded-[10px] outline-none ${styles.clickFocus}`}
+                name={type} key={uuid} type="button" onClick={() => setCat(type)}>{content}</button>
+            ))}
+          </div>
+          <button onClick={() => setPage(limitPagination(page - 1))}><img src={leftArrow} className="w-[56x] h-[56px] object-contain" /></button>
+          <button onClick={() => setPage(page + 1)}><img src={rightArrow} className="w-[56px] h-[56px] object-contain" /></button>
+          <div id="offers" className={`flex-col`}>
+            {offers && offers.map((offer, index) => (
+              <OfferCard key={offer.uuid} {...offer} index={index} />
+            ))}
+          </div>
+        </>
       </div>
     </section>
-  )
+  );
 };
 
-export default class OffersList extends React.Component {
-  state = {
-    offers: [],
-    category: ""
-  }
-
-  async componentDidMount() {
-    const offers = staticOffers;
-    this.setState({ offers });
-    // const response = await axiosInstance.get("/offers/?category=backend&skip=10&limit=5");
-    // console.log(response.data);
-    // this.setState({ offers: response.data });
-  }
-
-  render() {
-    return (
-      <Offers offers={this.state.offers} category={this.state.category} />
-    );
-  }
-};
+export default OffersList;
