@@ -22,13 +22,12 @@ const ModalAddResume = ({ isOpen, id }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axiosInstance.post(`/employees/${id}/resume`,
+            const response = await axiosInstance.put(`/employees/${id}/resume`,
                 {
                     content: desc
                 }
             );
             console.log(JSON.stringify(response?.data));
-            navigate(from, { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -55,7 +54,7 @@ const ModalAddResume = ({ isOpen, id }) => {
                         <img src={close} className="w-[100%] h-[100%]" />
                     </button>
                 </div>
-                <h2 className={`${styles.heading2} mb-5`}>Add employee</h2>
+                <h2 className={`${styles.heading2} mb-5`}>Update resume</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="py-1">
                         <label className="text-oldWhite text-[18px] p-2" htmlFor="desc">Resume description: </label>

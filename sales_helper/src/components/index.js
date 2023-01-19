@@ -5,10 +5,12 @@ import Stats from "./Stats";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Login from "./Login";
-import ModalWindow from "./ModalAddUserForm";
+import ModalAddUser from "./ModalAddUserForm";
+import ModalAddResume from "./ModalAddResumeForm";
 import OffersList from "./Offers";
 import UsersList from "./Users";
-import UsersQueryList from "./UsersQuery";
+import UsersQuery from "./UsersQuery";
+import UsersSearch from "./UsersSearch";
 import RequireAuth from "./RequireAuth";
 
 export {
@@ -19,9 +21,11 @@ export {
   Footer,
   Hero,
   Login,
-  ModalWindow,
+  ModalAddUser,
+  ModalAddResume,
+  UsersSearch,
   OffersList,
   UsersList,
-  UsersQueryList,
+  UsersQuery,
   RequireAuth
 };

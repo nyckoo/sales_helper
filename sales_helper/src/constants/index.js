@@ -1,3 +1,5 @@
+const desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
 export const navLinks = [
   {
     id: "home",
@@ -113,21 +115,40 @@ export const staticOffers = [
     title: "Backend Software Developer",
     skills: ["Fast API", "MongoDB"],
     url: "https://www.justjoin.it/backend",
-    category: "backend"
+    category: "backend",
+    description: desc
   },
   {
     uuid: "2",
     title: "Backend Engineer",
     skills: ["Django", "Flask"],
     url: "https://www.justjoin.it/frontend",
-    category: "frontend"
+    category: "frontend",
+    description: desc
   },
   {
     uuid: "3",
     title: "Junior Backend Tester",
     skills: ["Postman", "Python"],
     url: "https://www.justjoin.it/devops",
-    category: "backend"
+    category: "backend",
+    description: desc
+  },
+  {
+    uuid: "4",
+    title: "Junior Mobile Dev",
+    skills: ["Flutter", "UI"],
+    url: "https://www.justjoin.it/devops",
+    category: "mobile",
+    description: desc
+  },
+  {
+    uuid: "5",
+    title: "Fullstack Engineer",
+    skills: ["Node", "React"],
+    url: "https://www.justjoin.it/devops",
+    category: "fullstack",
+    description: desc
   },
 ];
 
@@ -171,5 +192,45 @@ export const staticUsers = [
     position: "Frontend",
     category: "Mid",
     is_busy: true
+  },
+  {
+    id: 6,
+    name: "Tim",
+    surname: "Whimper",
+    position: "Mobile",
+    category: "Flutter, Dart Mid",
+    is_busy: true
+  },
+  {
+    id: 7,
+    name: "Neil",
+    surname: "Urgent",
+    position: "Backend",
+    category: "Go, Oracle Senior",
+    is_busy: false
+  },
+  {
+    id: 8,
+    name: "Manda",
+    surname: "Babung",
+    position: "Fullstack",
+    category: ".NET, Rust Mid",
+    is_busy: true
+  },
+  {
+    id: 9,
+    name: "Pigeon",
+    surname: "Quick",
+    position: "Mobile",
+    category: "Android Mid",
+    is_busy: false
+  },
+  {
+    id: 10,
+    name: "Croco",
+    surname: "Papig",
+    position: "Frontend",
+    category: "React/Vue Junior",
+    is_busy: false
   }
 ];

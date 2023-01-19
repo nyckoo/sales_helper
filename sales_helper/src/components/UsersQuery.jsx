@@ -1,42 +1,76 @@
 import { staticUsers } from "../constants";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { axiosInstance } from "../axios";
-import styles, { layout } from "../style";
+import styles from "../style";
 import { arrowUpRight } from "../assets";
+import { render } from "react-dom";
 
-export default class UsersQueryList extends React.Component {
-    state = {
-        users: []
-    }
+const UserDetails = ({ isVisible, offerUuid }) => {
+    const [match, setMatch] = useState(null);
 
-    async componentDidMount() {
-        // fetch(`https://API_LINK/users`)
-        // .then((response) => response.json())
-        // .then((data) => {
-        //  console.log(data);
-        const users = staticUsers;
-        this.setState({ users });
-        // }).catch((err) => {
-        // console.log(err.message);
-        // });
-    }
+    useEffect(() => {
+        const getMatchValue = async () => {
+            try {
+                const url = `/offers/${offerUuid}/match`;
+                const { data } = await axiosInstance.get(url);
+                var match = data.match_ratio;
+                console.log(data);
+                setMatch(match);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getMatchValue();
+    }, [match]);
 
-    render() {
-        return (
-            <>
-                <div className="flex flex-col">
-                    {this.state.users.map((user, index) => (
-                        <div className="items-center font-medium text-dimWhite flex flex-row mt-1" key={index}>
-                            <div className={`min-w-[40px] h-[30px] rounded-full ${styles.flexCenter} bg-extra-gradient`}>
-                                <img src={arrowUpRight} alt="star" className="object-contain" />
-                            </div>
-                            <p className="ml-2 text-oldWhite">
-                                {user.surname}{" "}{user.name}
-                            </p>
+    return (
+        <p>
+            {match}
+        </p>
+
+    );
+
+}
+
+const UsersQuery = ({ pageNumber, searchedUsers, offerUuid }) => {
+    const [users, setUsers] = useState([]);
+    const [searched, isSearched] = useState(false);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try {
+                const url = `/employees/?skip=${(pageNumber - 1) * 5}&limit=5`;
+                const { data } = await axiosInstance.get(url);
+                console.log(data);
+                setUsers(data);
+                searchedUsers ? setUsers(searchedUsers) : setUsers(data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getUsers();
+    }, [pageNumber, searchedUsers]);
+    // {user.surname}{" "}{user.name}&nbsp;{match}
+
+    return (
+        <>
+            <div className="flex flex-col">
+                {users.map((user, index) => (
+                    <div className="items-center font-medium text-dimWhite flex flex-row mt-1" key={index}>
+                        <div className={`min-w-[40px] h-[30px] rounded-full ${styles.flexCenter} bg-extra-gradient`}>
+                            <img src={arrowUpRight} className="object-contain"
+                                onClick={() => isSearched(true)} />
                         </div>
-                    ))}
-                </div>
-            </>
-        );
-    }
+                        <p className="ml-2 text-oldWhite">
+                            {user.name}{" "}{user.surname}
+                            {/* {searched && <UserDetails isVisible={searched}
+                                offerUuid={offerUuid} />} */}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </>
+    );
 };
+
+export default UsersQuery;

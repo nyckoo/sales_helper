@@ -9,7 +9,7 @@ import { adduser, arrowDown, arrowUp, rightArrow, leftArrow, document_desc } fro
 const UserCard = ({ name, surname, position, category, resume, id }) => {
     const [toggle, setToggle] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-    const desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
     return (
         <div className={`flex flex-row items-center p-2 rounded-[20px] my-4 users-card`}>
             <img src={document_desc} className={`${styles.iconHover} p-[4px] h-[64px] w-[64px] object-contain`} onClick={setModalOpen} />
@@ -46,7 +46,7 @@ const UsersList = () => {
             try {
                 const url = `/employees/`;
                 const { data } = await axiosInstance.get(url);
-                console.log(data);
+                //console.log(data);
                 setUsers(data);
             } catch (err) {
                 console.log(err);
@@ -75,16 +75,6 @@ const UsersList = () => {
                     ))}
                 </div>
             </div>
-            {/* <div className={layout.sectionInfo}>
-          <h2 className={styles.heading2}>
-            headline text
-          </h2>
-          <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-            desc text
-          </p>
-
-          <Button styles={`mt-10`} />
-        </div> */}
         </section>
     );
 };
