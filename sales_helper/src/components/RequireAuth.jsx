@@ -1,14 +1,13 @@
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { axiosInstance } from "../axios";
 
 const RequireAuth = () => {
     const { auth } = useAuth();
     const location = useLocation();
 
     return (
-        auth?.token
-            ? <Navigate to="/dashboard" state={{ from: location }} replace />
+        auth?.user
+            ? <Outlet />
             : <Navigate to="/unauthorized" state={{ from: location }} replace />
     );
 }

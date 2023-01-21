@@ -1,6 +1,6 @@
 import { filterButtons, busyButtons } from "../constants";
 import { useRef, useState, useEffect } from 'react';
-import { axiosInstance } from "../axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import styles from "../style";
 import { close } from "../assets";
 
@@ -15,6 +15,8 @@ const ModalAddUser = ({ isOpen }) => {
     const [busy, setBusy] = useState(null);
     const [errMsg, setErrMsg] = useState('');
 
+    const axiosPrivate = useAxiosPrivate();
+
     useEffect(() => {
         userRef.current.focus();
     }, [])
@@ -26,7 +28,7 @@ const ModalAddUser = ({ isOpen }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axiosInstance.post("/employees/",
+            const response = await axiosPrivate.post("/employees/",
                 {
                     name: username,
                     surname: surname,
@@ -104,12 +106,14 @@ const ModalAddUser = ({ isOpen }) => {
                         />
                     </div>
                     <>
+                        <p className={styles.paragraph}>Category:</p>
                         <div id="categoryButtons" className={`flex-1 flex-row p-2 text-oldWhite w-screen`}>
                             {filterButtons && filterButtons.map(({ uuid, content, type }) => (
                                 <button className={`py-3 px-4 font-poppins font-medium text-[16px] text-oldWhite bg-extra-gradient rounded-[10px] outline-none ${cat == uuid ? styles.clickEnabled : ""}`}
                                     name={content} key={uuid} type="button" onClick={() => setCat(uuid)}>{content}</button>
                             ))}
                         </div>
+                        <p className={styles.paragraph}>Is busy?:</p>
                         <div id="busyButtons" className={`flex-col`}>
                             {busyButtons && busyButtons.map(({ id, content, type }) => (
                                 <button className={`py-3 px-4 font-poppins font-medium text-[16px] text-oldWhite bg-extra-gradient rounded-[10px] outline-none ${busy === type ? styles.clickEnabled : ""}`}
@@ -119,17 +123,20 @@ const ModalAddUser = ({ isOpen }) => {
                     </>
                     <div className="flex flex-1 items-end">
                         <button
+                            type="submit"
+                            id="sumbitBtn"
+                            className={`${styles.inputField} m-2 ${styles.paragraph} `}
+                        >Add</button>
+                        <button
                             onClick={() => {
                                 isOpen(false);
                             }}
                             id="cancelBtn"
+                            className={`${styles.inputField} m-2 ${styles.paragraph} `}
                         >
                             Cancel
                         </button>
-                        <button
-                            type="submit"
-                            id="sumbitBtn"
-                        >Add</button>
+
                     </div>
                 </form>
                 <p className={`${styles.paragraph} max-w-[470px] mt-5 ${errMsg ? "errmsg" : "offscreen"}`} ref={errRef} aria-live="assertive">{errMsg}</p>

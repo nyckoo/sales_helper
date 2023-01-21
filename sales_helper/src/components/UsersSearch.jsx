@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { axiosInstance } from "../axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import styles from "../style";
 import { arrowUpRight } from "../assets";
 
 const UsersSearch = ({ setSearchResults, filteredUsers }) => {
     const [users, setUsers] = useState([]);
-    //console.log("UsersQueryList:", pageNumber, typeof (pageNumber));
+    const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
         const getUsers = async () => {
             try {
                 const url = `/employees/?skip=0&limit=100`;
-                const { data } = await axiosInstance.get(url);
+                const { data } = await axiosPrivate.get(url);
                 //console.log(data);
                 setSearchResults(data);
                 console.log(filteredUsers);

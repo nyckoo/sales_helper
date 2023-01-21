@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles, { layout } from '../style';
 import Button from "./Button";
-import { axiosInstance } from '../axios';
+import axios from '../axios';
 import useAuth from '../hooks/useAuth';
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/dashboard";
 
     const userRef = useRef();
     const errRef = useRef();
@@ -39,12 +39,11 @@ const Login = () => {
         params.append("password", pwd);
         params.append("grant_type", "password");
         try {
-            const response = await axiosInstance.post('/auth/login',
+            const response = await axios.post('/auth/login',
                 params,
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'withCredentials': true,
                         'Accept': 'application/json'
                     }
                 }
@@ -52,20 +51,26 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
             const token = response?.data?.access_token;
             //console.log(response?.data?.access_token);
-            //axiosInstance.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+            //axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
 
-            setAuth(token);
-            //setUser('');
-            //setPwd('');
+            setAuth({ user, pwd, token });
+            setUser('');
+            setPwd('');
+
             setSuccess(true);
             navigate(from, { replace: true });
+
         } catch (err) {
             if (!err?.response) {
-                setErrMsg('Server Error');
+                setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {
                 setErrMsg('Missing Username or Password');
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
+            } else if (err.response?.status === 422) {
+                setErrMsg('Validation Error');
+            } else if (err.response?.status === 500) {
+                setErrMsg('Server Error');
             } else {
                 setErrMsg('Login Failed');
             }
@@ -76,12 +81,14 @@ const Login = () => {
     return (
         <>
             {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
-                    <br />
-                    <p>
-                        <a href="#">Go to Home</a>
-                    </p>
+                <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}>
+                    <div className="flex-1 flex flex-col">
+                        <h2 className={styles.heading2}>Already logged in.</h2>
+                        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+                            Go to the dashboard section by clicking the button below.
+                        </p>
+                        <Link to="/dashboard"><Button type="button" styles="mt-10 border border-oldWhite" content={"See dashboard"} /></Link>
+                    </div>
                 </section>
             ) : (
                 <section id="login" className={`${layout.section}`}>

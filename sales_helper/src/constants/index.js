@@ -11,11 +11,11 @@ export const navLinks = [
     link: "/dashboard",
     title: "Dashboard",
   },
-  {
-    id: "login",
-    link: "/login",
-    title: "Login",
-  },
+  // {
+  //   id: "login",
+  //   link: "/login",
+  //   title: "Login",
+  // },
 ];
 
 export const footerLinks = [

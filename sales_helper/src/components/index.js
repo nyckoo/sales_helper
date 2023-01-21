@@ -12,6 +12,7 @@ import UsersList from "./Users";
 import UsersQuery from "./UsersQuery";
 import UsersSearch from "./UsersSearch";
 import RequireAuth from "./RequireAuth";
+import Unauthorized from "./Unauthorized";
 
 export {
   Navbar,
@@ -27,5 +28,6 @@ export {
   OffersList,
   UsersList,
   UsersQuery,
-  RequireAuth
+  RequireAuth,
+  Unauthorized
 };

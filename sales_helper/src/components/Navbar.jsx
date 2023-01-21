@@ -9,12 +9,16 @@ const Navbar = () => {
   const [active, setActive] = useState(null);
   const [toggle, setToggle] = useState(false);
 
-  useEffect(() => {
+  const showNavLinks = (locationPath) => {
     navLinks.map(element => {
-      if (location.pathname == element.link) {
+      if (locationPath == element.link) {
         setActive(element.title);
       }
     })
+  };
+
+  useEffect(() => {
+    showNavLinks(location.pathname);
   });
 
   return (

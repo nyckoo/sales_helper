@@ -1,6 +1,6 @@
 import { filterButtons, busyButtons } from "../constants";
 import { useRef, useState, useEffect } from 'react';
-import { axiosInstance } from "../axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import styles from "../style";
 import { close } from "../assets";
 
@@ -10,6 +10,8 @@ const ModalAddResume = ({ isOpen, id }) => {
 
     const [desc, setDesc] = useState('');
     const [errMsg, setErrMsg] = useState('');
+
+    const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
         userRef.current.focus();
@@ -22,7 +24,7 @@ const ModalAddResume = ({ isOpen, id }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axiosInstance.put(`/employees/${id}/resume`,
+            const response = await axiosPrivate.put(`/employees/${id}/resume`,
                 {
                     content: desc
                 }
@@ -56,32 +58,36 @@ const ModalAddResume = ({ isOpen, id }) => {
                 </div>
                 <h2 className={`${styles.heading2} mb-5`}>Update resume</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="py-1">
+                    <div className="flex flex-col py-1">
                         <label className="text-oldWhite text-[18px] p-2" htmlFor="desc">Resume description: </label>
-                        <input
+                        <textarea
                             className={styles.inputField}
-                            type="text"
+                            placeholder="Enter employee resume here..."
+                            rows="10"
                             id="desc"
                             ref={userRef}
                             autoComplete="off"
                             onChange={(e) => setDesc(e.target.value)}
                             value={desc}
                             required
-                        />
+                        ></textarea>
                     </div>
                     <div className="flex flex-1 items-end">
+                        <button
+                            type="submit"
+                            id="sumbitBtn"
+                            className={`${styles.inputField} m-2 ${styles.paragraph}`}
+                        >Add</button>
                         <button
                             onClick={() => {
                                 isOpen(false);
                             }}
                             id="cancelBtn"
+                            className={`${styles.inputField} m-2 ${styles.paragraph}`}
                         >
                             Cancel
                         </button>
-                        <button
-                            type="submit"
-                            id="sumbitBtn"
-                        >Add</button>
+
                     </div>
                 </form>
                 <p className={`${styles.paragraph} max-w-[470px] mt-5 ${errMsg ? "errmsg" : "offscreen"}`} ref={errRef} aria-live="assertive">{errMsg}</p>

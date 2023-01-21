@@ -1,46 +1,19 @@
 import { staticUsers } from "../constants";
 import React, { useState, useEffect } from "react";
-import { axiosInstance } from "../axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import styles from "../style";
 import { arrowUpRight } from "../assets";
-import { render } from "react-dom";
-
-const UserDetails = ({ isVisible, offerUuid }) => {
-    const [match, setMatch] = useState(null);
-
-    useEffect(() => {
-        const getMatchValue = async () => {
-            try {
-                const url = `/offers/${offerUuid}/match`;
-                const { data } = await axiosInstance.get(url);
-                var match = data.match_ratio;
-                console.log(data);
-                setMatch(match);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getMatchValue();
-    }, [match]);
-
-    return (
-        <p>
-            {match}
-        </p>
-
-    );
-
-}
 
 const UsersQuery = ({ pageNumber, searchedUsers, offerUuid }) => {
     const [users, setUsers] = useState([]);
     const [searched, isSearched] = useState(false);
+    const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const url = `/employees/?skip=${(pageNumber - 1) * 5}&limit=5`;
-                const { data } = await axiosInstance.get(url);
+                const url = `/offers/${offerUuid}/match?skip=${(pageNumber - 1) * 5}&limit=5`;
+                const { data } = await axiosPrivate.get(url);
                 console.log(data);
                 setUsers(data);
                 searchedUsers ? setUsers(searchedUsers) : setUsers(data);
@@ -62,9 +35,11 @@ const UsersQuery = ({ pageNumber, searchedUsers, offerUuid }) => {
                                 onClick={() => isSearched(true)} />
                         </div>
                         <p className="ml-2 text-oldWhite">
-                            {user.name}{" "}{user.surname}
-                            {/* {searched && <UserDetails isVisible={searched}
-                                offerUuid={offerUuid} />} */}
+                            {user.employee.name}{" "}{user.employee.surname}{" - Match: "}{user.match_ratio.toPrecision(2)}
+                            {/* searched &&  */}
+                            {/* <UserDetails isVisible={searched}
+                                offerUuid={offerUuid} /> */}
+
                         </p>
                     </div>
                 ))}

@@ -1,6 +1,6 @@
 import { staticUsers } from "../constants";
 import React, { useState, useEffect } from "react";
-import { axiosInstance } from "../axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import ModalAddUser from "./ModalAddUserForm";
 import ModalAddResume from "./ModalAddResumeForm";
 import styles, { layout } from "../style";
@@ -11,8 +11,8 @@ const UserCard = ({ name, surname, position, category, resume, id }) => {
     const [isModalOpen, setModalOpen] = useState(false);
 
     return (
-        <div className={`flex flex-row items-center p-2 rounded-[20px] my-4 users-card`}>
-            <img src={document_desc} className={`${styles.iconHover} p-[4px] h-[64px] w-[64px] object-contain`} onClick={setModalOpen} />
+        <div className={`flex flex-row items-start p-2 rounded-[20px] my-4 users-card`}>
+            <img src={document_desc} className={`${styles.iconHover} mt-2 p-[4px] h-[64px] w-[64px] object-contain`} onClick={setModalOpen} />
             {isModalOpen && <ModalAddResume isOpen={setModalOpen} id={id} />}
             <div className="flex flex-col ml-3 mr-3">
                 <div className="flex-1 flex flex-row">
@@ -40,12 +40,13 @@ const UsersList = () => {
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [isModalOpen, setModalOpen] = useState(false);
+    const axiosPrivate = useAxiosPrivate();
 
     useEffect(() => {
         const getOffers = async () => {
             try {
                 const url = `/employees/`;
-                const { data } = await axiosInstance.get(url);
+                const { data } = await axiosPrivate.get(url);
                 //console.log(data);
                 setUsers(data);
             } catch (err) {

@@ -1,9 +1,13 @@
 import axios from "axios";
+const BASE_URL = "https://3351-89-64-62-54.eu.ngrok.io/"
 
-export const axiosInstance = axios.create({
-    baseURL: "https://6a20-89-64-62-54.eu.ngrok.io/",
+export default axios.create({
+    baseURL: BASE_URL
+});
+
+export const axiosPrivate = axios.create({
+    baseURL: BASE_URL,
     headers: {
-        "Accept": "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
     },

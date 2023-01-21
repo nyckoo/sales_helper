@@ -1,6 +1,6 @@
 import { staticOffers, filterButtons, staticUsers } from "../constants";
 import React, { useState, useEffect } from "react";
-import { axiosInstance } from "../axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import UsersQuery from "./UsersQuery";
 import UsersSearch from "./UsersSearch";
 import styles, { layout } from "../style";
@@ -34,7 +34,7 @@ const OfferCard = ({ uuid, title, skills, description, index }) => {
             onClick={() => {
               setUsersExpanded(!isUsersExpanded);
             }} />
-          <p className="text-oldWhite text-[12px]">Search</p>
+          <p className="text-oldWhite text-[12px]">Browse</p>
         </div>
         <div className="flex flex-col ml-3 mr-3">
           <div className="flex-1 flex flex-row">
@@ -77,13 +77,13 @@ const OfferCard = ({ uuid, title, skills, description, index }) => {
           </div>
           <div onFocus={() => isCaptured(true)}>
             <div className="flex flex-row py-2 font-poppins font-medium text-dimWhite">
-              <input
+              {/* <input
                 className={styles.inputField}
                 type="text"
                 id="search"
                 placeholder="Type Name/Surname"
                 onInput={handleSearchChange}
-              />
+              /> */}
               {captured && <button
                 className="ml-2 border-[2px] border-oldWhite rounded-md w-[26px]"
                 onClick={() => {
@@ -104,12 +104,13 @@ const OffersList = () => {
   const [offers, setOffers] = useState([]);
   const [cat, setCat] = useState(null);
   const [page, setPage] = useState(1);
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => { //async api call
     const getOffers = async () => {
       try {
         const url = `/offers/?category=${cat}&skip=${(page - 1) * 5}&limit=5`;
-        const { data } = await axiosInstance.get(url);
+        const { data } = await axiosPrivate.get(url);
         console.log(data);
         setOffers(data);
         //setOffers(staticOffers)
