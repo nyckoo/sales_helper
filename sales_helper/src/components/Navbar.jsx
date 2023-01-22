@@ -1,25 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 import { close, logo, menu } from "../assets";
 import { navLinks } from "../constants";
 
 const Navbar = () => {
-
-  const [active, setActive] = useState(null);
   const [toggle, setToggle] = useState(false);
-
-  const showNavLinks = (locationPath) => {
-    navLinks.map(element => {
-      if (locationPath == element.link) {
-        setActive(element.title);
-      }
-    })
-  };
-
-  useEffect(() => {
-    showNavLinks(location.pathname);
-  });
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
@@ -29,10 +15,12 @@ const Navbar = () => {
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-[16px] ${active === nav.title ? "text-white" : "text-dimWhite"
-              } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
+            className={`font-poppins font-normal cursor-pointer text-[16px]
+              ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
           >
-            <Link to={nav.link} onClick={() => setActive(nav.title)}>{nav.title}</Link>
+            <NavLink to={nav.link}
+              className={({ isActive }) => isActive ? " text-white " : " text-dimWhite "}
+            >{nav.title}</NavLink>
           </li>
         ))}
       </ul>
@@ -53,11 +41,12 @@ const Navbar = () => {
             {navLinks.map((nav, index) => (
               <li
                 key={nav.id}
-                className={`font-poppins font-medium cursor-pointer text-[16px] ${active === nav.title ? "text-white" : "text-dimWhite"
-                  } ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
-                onClick={() => setActive(nav.title)}
+                className={`font-poppins font-medium cursor-pointer text-[16px]
+                  ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
               >
-                <Link to={nav.link}>{nav.title}</Link>
+                <NavLink to={nav.link}
+                  className={({ isActive }) => isActive ? " text-white " : " text-dimWhite "}
+                >{nav.title}</NavLink>
               </li>
             ))}
           </ul>

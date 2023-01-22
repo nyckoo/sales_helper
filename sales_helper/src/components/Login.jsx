@@ -1,32 +1,27 @@
 import { useRef, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import styles, { layout } from '../style';
 import Button from "./Button";
 import axios from '../axios';
 import useAuth from '../hooks/useAuth';
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, setAuthenticated, authenticated } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/dashboard";
 
-    const userRef = useRef();
+    //const userRef = useRef();
     const errRef = useRef();
 
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
 
-    //const formData = new FormData();
-    //const fs = require('fs')
-    //const path = require('path')
-
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
+    // useEffect(() => {
+    //     userRef.current.focus();
+    // }, [])
 
     useEffect(() => {
         setErrMsg('');
@@ -50,16 +45,13 @@ const Login = () => {
             );
             console.log(JSON.stringify(response?.data));
             const token = response?.data?.access_token;
-            //console.log(response?.data?.access_token);
-            //axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
 
             setAuth({ user, pwd, token });
             setUser('');
             setPwd('');
 
-            setSuccess(true);
             navigate(from, { replace: true });
-
+            setAuthenticated(true);
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -80,7 +72,7 @@ const Login = () => {
 
     return (
         <>
-            {success ? (
+            {authenticated ? (
                 <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}>
                     <div className="flex-1 flex flex-col">
                         <h2 className={styles.heading2}>Already logged in.</h2>
@@ -101,7 +93,7 @@ const Login = () => {
                                     className={styles.inputField}
                                     type="text"
                                     id="username"
-                                    ref={userRef}
+                                    //ref={userRef}
                                     autoComplete="off"
                                     onChange={(e) => setUser(e.target.value)}
                                     value={user}
@@ -128,5 +120,17 @@ const Login = () => {
         </>
     )
 }
+
+// (
+//     <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}>
+//         <div className="flex-1 flex flex-col">
+//             <h2 className={styles.heading2}>Already logged in.</h2>
+//             <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+//                 Go to the dashboard section by clicking the button below.
+//             </p>
+//             <Link to="/dashboard"><Button type="button" styles="mt-10 border border-oldWhite" content={"See dashboard"} /></Link>
+//         </div>
+//     </section>
+// )
 
 export default Login;

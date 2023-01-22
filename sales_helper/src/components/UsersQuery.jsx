@@ -35,7 +35,7 @@ const UsersQuery = ({ pageNumber, searchedUsers, offerUuid }) => {
                                 onClick={() => isSearched(true)} />
                         </div>
                         <p className="ml-2 text-oldWhite">
-                            {user.employee.name}{" "}{user.employee.surname}{" - Match: "}{user.match_ratio.toPrecision(2)}
+                            {user.employee.name}{" "}{user.employee.surname}{" - Match: "}{user.match_ratio.toPrecision(2) * 100}{"%"}
                             {/* searched &&  */}
                             {/* <UserDetails isVisible={searched}
                                 offerUuid={offerUuid} /> */}
