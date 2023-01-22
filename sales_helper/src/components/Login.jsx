@@ -19,10 +19,6 @@ const Login = () => {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
-    // useEffect(() => {
-    //     userRef.current.focus();
-    // }, [])
-
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd])
@@ -120,17 +116,5 @@ const Login = () => {
         </>
     )
 }
-
-// (
-//     <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}>
-//         <div className="flex-1 flex flex-col">
-//             <h2 className={styles.heading2}>Already logged in.</h2>
-//             <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-//                 Go to the dashboard section by clicking the button below.
-//             </p>
-//             <Link to="/dashboard"><Button type="button" styles="mt-10 border border-oldWhite" content={"See dashboard"} /></Link>
-//         </div>
-//     </section>
-// )
 
 export default Login;
