@@ -1,11 +1,10 @@
 //import styles from "../style";
 import { OffersList, UsersList } from "../components";
 
-const Dashboard = () => (
+const Offers = () => (
     <div>
         <OffersList />
-        <UsersList />
     </div>
 );
 
-export default Dashboard;
+export default Offers;

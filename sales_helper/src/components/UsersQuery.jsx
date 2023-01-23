@@ -12,7 +12,7 @@ const UsersQuery = ({ pageNumber, searchedUsers, offerUuid }) => {
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const url = `/offers/${offerUuid}/match?skip=${(pageNumber - 1) * 5}&limit=5`;
+                const url = `/offers/${offerUuid}/match?skip=${(pageNumber - 1) * 5}&limit=${pageNumber*5}`;
                 const { data } = await axiosPrivate.get(url);
                 console.log(data);
                 setUsers(data);

@@ -7,9 +7,14 @@ export const navLinks = [
     title: "Home",
   },
   {
-    id: "dashboard",
-    link: "/dashboard",
-    title: "Dashboard",
+    id: "offers",
+    link: "/offers",
+    title: "Offers",
+  },
+  {
+    id: "employees",
+    link: "/employees",
+    title: "Employees",
   },
   // {
   //   id: "login",
@@ -89,24 +94,29 @@ export const busyButtons = [
 export const filterButtons = [
   {
     uuid: "1",
+    content: "All",
+    type: "all"
+  },
+  {
+    uuid: "2",
     content: "Backend",
     type: "backend"
   },
   {
-    uuid: "2",
+    uuid: "3",
     content: "Frontend",
     type: "frontend"
   },
   {
-    uuid: "3",
+    uuid: "4",
     content: "Fullstack",
     type: "fullstack"
   },
   {
-    uuid: "4",
+    uuid: "5",
     content: "Mobile",
     type: "mobile"
-  },
+  }
 ];
 
 export const staticOffers = [
