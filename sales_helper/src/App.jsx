@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import styles from "./style";
 import { Navbar, Footer, RequireAuth } from "./components";
-import { Default, Dashboard, LoginPage, Page404, UnauthorizedPage } from "./pages";
+import { Default, Offers, LoginPage, Page404, UnauthorizedPage, Employees } from "./pages";
 
 const App = () => (
   <div className="bg-primary w-full overflow-hidden">
@@ -20,7 +20,8 @@ const App = () => (
           <Route path="unauthorized" element={<UnauthorizedPage />}></Route>
           {/* Protected */}
           <Route element={<RequireAuth />}>
-            <Route path="dashboard" element={<Dashboard />}></Route>
+            <Route path="offers" element={<Offers />}></Route>
+            <Route path="employees" element={<Employees />}></Route>
           </Route>
           {/* Unrecognized */}
           <Route path="*" element={<Page404 />}></Route>

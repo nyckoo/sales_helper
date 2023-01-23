@@ -10,7 +10,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/dashboard";
+    const from = location.state?.from?.pathname || "/offers";
 
     //const userRef = useRef();
     const errRef = useRef();
@@ -73,9 +73,9 @@ const Login = () => {
                     <div className="flex-1 flex flex-col">
                         <h2 className={styles.heading2}>Already logged in.</h2>
                         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-                            Go to the dashboard section by clicking the button below.
+                            Go to the offers section by clicking the button below.
                         </p>
-                        <Link to="/dashboard"><Button type="button" styles="mt-10 border border-oldWhite" content={"See dashboard"} /></Link>
+                        <Link to="/offers"><Button type="button" styles="mt-10 border border-oldWhite" content={"See offers"} /></Link>
                     </div>
                 </section>
             ) : (
