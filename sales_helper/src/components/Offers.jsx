@@ -9,12 +9,11 @@ import { arrowDown, arrowUp, magnifyingGlass, rightArrow, leftArrow, close } fro
 const PageSize = 5;
 const limitPagination = (pageNr, change, totalNumber) => {
   if(change < 0) {
-    return (pageNr + change)*PageSize < 1 ? 1 : pageNr + change;
+    return pageNr + change < 1 ? 1 : pageNr + change;
   }
   else{
-    return (pageNr + change)*PageSize > totalNumber ? Math.floor(totalNumber/5) : pageNr + change;
+    return pageNr + change > Math.ceil(totalNumber/5) ? Math.ceil(totalNumber/5) : pageNr + change;
   }
-  
 };
 
 
@@ -110,10 +109,10 @@ const OffersList = () => {
         setOffers(data["results"]);
         setTotalNumberOfOffers(data["total_count"])
         setLeftButtonDisabled(
-          limitPagination(page, -1, totalNumberOfOffers) == page
+          page==1
         )
         setRightButtonDisabled(
-          limitPagination(page, +1, totalNumberOfOffers) == page
+            page*PageSize >= data["total_count"]
         )
       } catch (err) {
         console.log(err);

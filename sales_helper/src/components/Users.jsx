@@ -62,11 +62,13 @@ const UsersList = () => {
             setUsers(data["results"]);
             setTotalNumberOfOffers(data["total_count"])
             setLeftButtonDisabled(
-                limitPagination(page, -1, totalNumberOfOffers) == page
+                page==1
             )
             setRightButtonDisabled(
-                limitPagination(page, +1, totalNumberOfOffers) == page
+                page*PageSize >= data["total_count"]
             )
+            console.log(leftButtonDisabled, rightButtonDisabled);
+            console.log(totalNumberOfOffers);
         } catch (err) {
             console.log(err);
         }
@@ -74,7 +76,7 @@ const UsersList = () => {
 
     useEffect(() => {
         getOffers();
-    }, [page, cat]);
+    }, [cat, page]);
 
     return (
         <section id="users" className={layout.section}>
