@@ -4,7 +4,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import styles from "../style";
 import { close } from "../assets";
 
-const ModalAddResume = ({ isOpen, id }) => {
+const ModalAddResume = ({ isOpen, id, refreshOffers, resume }) => {
     const userRef = useRef();
     const errRef = useRef();
 
@@ -24,11 +24,21 @@ const ModalAddResume = ({ isOpen, id }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axiosPrivate.put(`/employees/${id}/resume`,
-                {
-                    content: desc
-                }
-            );
+            var response;
+            if (resume) {
+                response = await axiosPrivate.put(`/employees/${id}/resume`,
+                    {
+                        content: desc
+                    }
+                )
+            } else {
+                response = await axiosPrivate.post(`/employees/${id}/resume`,
+                    {
+                        content: desc
+                    }
+                )
+            }
+
             console.log(JSON.stringify(response?.data));
         } catch (err) {
             if (!err?.response) {
@@ -43,6 +53,7 @@ const ModalAddResume = ({ isOpen, id }) => {
             errRef.current.focus();
         }
         isOpen(false);
+        refreshOffers();
     }
 
     return (
@@ -72,12 +83,7 @@ const ModalAddResume = ({ isOpen, id }) => {
                             required
                         ></textarea>
                     </div>
-                    <div className="flex flex-1 items-end">
-                        <button
-                            type="submit"
-                            id="sumbitBtn"
-                            className={`${styles.inputField} m-2 ${styles.paragraph}`}
-                        >Add</button>
+                    <div className="flex justify-end">
                         <button
                             onClick={() => {
                                 isOpen(false);
@@ -87,7 +93,11 @@ const ModalAddResume = ({ isOpen, id }) => {
                         >
                             Cancel
                         </button>
-
+                        <button
+                            type="submit"
+                            id="sumbitBtn"
+                            className={`${styles.inputField} m-2 ${styles.paragraph}`}
+                        >Add</button>
                     </div>
                 </form>
                 <p className={`${styles.paragraph} max-w-[470px] mt-5 ${errMsg ? "errmsg" : "offscreen"}`} ref={errRef} aria-live="assertive">{errMsg}</p>

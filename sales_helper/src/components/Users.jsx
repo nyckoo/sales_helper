@@ -6,14 +6,14 @@ import ModalAddResume from "./ModalAddResumeForm";
 import styles, { layout } from "../style";
 import { adduser, arrowDown, arrowUp, rightArrow, leftArrow, document_desc } from "../assets";
 
-const UserCard = ({ name, surname, position, category, resume, id }) => {
+const UserCard = ({ name, surname, position, category, resume, id, refreshOffers }) => {
     const [toggle, setToggle] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
 
     return (
         <div className={`flex flex-row items-start p-2 rounded-[20px] my-4 users-card`}>
             <img src={document_desc} className={`${styles.iconHover} mt-2 p-[4px] h-[64px] w-[64px] object-contain`} onClick={setModalOpen} />
-            {isModalOpen && <ModalAddResume isOpen={setModalOpen} id={id} />}
+            {isModalOpen && <ModalAddResume isOpen={setModalOpen} id={id} refreshOffers={refreshOffers} resume={resume.content} />}
             <div className="flex flex-col ml-3 mr-3">
                 <div className="flex-1 flex flex-row">
                     <img src={toggle ? arrowUp : arrowDown} alt="arrow-down" className="w-[24px] h-[24px] object-contain mr-3" onClick={() => setToggle(!toggle)} />
@@ -42,17 +42,18 @@ const UsersList = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const axiosPrivate = useAxiosPrivate();
 
+    const getOffers = async () => {
+        try {
+            const url = `/employees/`;
+            const { data } = await axiosPrivate.get(url);
+            //console.log(data);
+            setUsers(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     useEffect(() => {
-        const getOffers = async () => {
-            try {
-                const url = `/employees/`;
-                const { data } = await axiosPrivate.get(url);
-                //console.log(data);
-                setUsers(data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
         getOffers();
     }, [page]);
 
@@ -67,12 +68,12 @@ const UsersList = () => {
                     <h2 className={styles.heading2}>Available Users</h2>
                     <img src={adduser} className={`${styles.iconHover} mx-5 p-[4px] h-[64px] w-[64px] object-contain`} onClick={setModalOpen} />
                 </div>
-                {isModalOpen && <ModalAddUser isOpen={setModalOpen} />}
+                {isModalOpen && <ModalAddUser isOpen={setModalOpen} refreshOffers={getOffers} />}
                 <button onClick={() => setPage(limitPagination(page - 1))}><img src={leftArrow} className="w-[56x] h-[56px] object-contain" /></button>
                 <button onClick={() => setPage(page + 1)}><img src={rightArrow} className="w-[56px] h-[56px] object-contain" /></button>
                 <div className="flex-col">
                     {users.map((user, index) => (
-                        <UserCard key={user.id} {...user} index={index + 1} />
+                        <UserCard key={user.id} {...user} index={index + 1} refreshOffers={getOffers} />
                     ))}
                 </div>
             </div>
