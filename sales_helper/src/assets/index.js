@@ -10,6 +10,7 @@ import arrowUpRight from "./arrow-upright.svg";
 import arrowDown from "./down-arrow.svg";
 import rightArrow from "./right-arrow.svg"
 import leftArrow from "./left-arrow.svg"
+import job from "./job.svg"
 
 export {
   adduser,
@@ -23,5 +24,6 @@ export {
   arrowUpRight,
   arrowDown,
   rightArrow,
-  leftArrow
+  leftArrow,
+  job
 };
