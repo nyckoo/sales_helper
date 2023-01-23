@@ -57,19 +57,6 @@ const UsersList = () => {
 
     const getOffers = async () => {
         try {
-            const url = `/employees/`;
-            const { data } = await axiosPrivate.get(url);
-            //console.log(data);
-            setUsers(data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    
-
-    const getOffers = async () => {
-        try {
             const url = `/employees/?category=${cat}&skip=${(page - 1) * PageSize}&limit=${PageSize}`;
             const { data } = await axiosPrivate.get(url);
             setUsers(data["results"]);
