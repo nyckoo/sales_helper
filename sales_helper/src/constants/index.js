@@ -62,17 +62,12 @@ export const footerLinks = [
 
 export const stats = [
   {
-    id: "stats-1",
+    id: "1",
     title: "Scanned Offers",
-    value: "10000+",
+    value: "244",
   },
   {
-    id: "stats-2",
-    title: "Active Users",
-    value: "100+",
-  },
-  {
-    id: "stats-3",
+    id: "2",
     title: "Supported Platforms",
     value: "2",
   }

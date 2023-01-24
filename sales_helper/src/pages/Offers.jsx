@@ -1,5 +1,4 @@
-//import styles from "../style";
-import { OffersList, UsersList } from "../components";
+import { OffersList } from "../components";
 
 const Offers = () => (
     <div>

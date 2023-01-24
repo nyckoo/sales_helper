@@ -11,6 +11,8 @@ const styles = {
 
   iconHover: "rounded-md hover:bg-neutral-600",
   clickFocus: "focus:ring focus:ring-neutral-300 m-2",
+  focused: "ring ring-neutral-300 m-2",
+  paginationEnd: "outline outline-3 outline-lime-600 rounded-[28px]",
   clickEnabled: "ring ring-neutral-300",
   modalBg: "flex fixed inset-0 bg-stone-900 bg-opacity-75 justify-center items-center",
   modalContainer: "flex-column md:w-[500px] md:h-[500px] p-5 bg-zinc-800 bg-opacity-75 rounded-[10px]",

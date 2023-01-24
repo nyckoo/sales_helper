@@ -12,7 +12,6 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/offers";
 
-    //const userRef = useRef();
     const errRef = useRef();
 
     const [user, setUser] = useState('');
