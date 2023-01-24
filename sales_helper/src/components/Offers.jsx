@@ -4,15 +4,15 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import UsersQuery from "./UsersQuery";
 import UsersSearch from "./UsersSearch";
 import styles, { layout } from "../style";
-import {magnifyingGlass, rightArrow, leftArrow, close } from "../assets";
+import { magnifyingGlass, rightArrow, leftArrow, close } from "../assets";
 
 const PageSize = 5;
 const limitPagination = (pageNr, change, totalNumber) => {
-  if(change < 0) {
+  if (change < 0) {
     return pageNr + change < 1 ? 1 : pageNr + change;
   }
-  else{
-    return pageNr + change > Math.ceil(totalNumber/5) ? Math.ceil(totalNumber/5) : pageNr + change;
+  else {
+    return pageNr + change > Math.ceil(totalNumber / 5) ? Math.ceil(totalNumber / 5) : pageNr + change;
   }
 };
 
@@ -38,7 +38,7 @@ const OfferCard = ({ uuid, title, skills, description, index }) => {
             {title}
           </h4>
           <div className={`${toggle ? "hidden" : "flex"} text-oldWhite text-[14px] my-2 min-w-[140px] max-w-[960px] rounded-md`}>
-              {description.slice(0, 50)}...
+            {description.slice(0, 50)}...
           </div>
           <div
             className={`${!toggle ? "hidden" : "flex"
@@ -85,10 +85,10 @@ const OffersList = () => {
         setOffers(data["results"]);
         setTotalNumberOfOffers(data["total_count"])
         setLeftButtonDisabled(
-          page==1
+          page == 1
         )
         setRightButtonDisabled(
-            page*PageSize >= data["total_count"]
+          page * PageSize >= data["total_count"]
         )
       } catch (err) {
         console.log(err);
@@ -102,26 +102,26 @@ const OffersList = () => {
       <div className={`${layout.sectionInfo} flex-col`}>
         <h2 className={`${styles.heading2} m-2`}>Current Offers</h2>
         <>
-          <div class="btn-group">
-            <button onClick={() => setPage(limitPagination(page, -1, totalNumberOfOffers))} 
-              className="pr-5" disabled={leftButtonDisabled}>
-              <img src={leftArrow} className="w-[56x] h-[56px] object-contain" />
-            </button>
-            <button onClick={() => setPage(limitPagination(page, 1, totalNumberOfOffers))} 
-              className="pl-5" disabled={rightButtonDisabled}>
-              <img src={rightArrow} className="w-[56px] h-[56px] object-contain" />
-            </button>
-          </div>
           <div id="buttons" className={`flex-1 flex-row p-2 text-oldWhite w-screen`}>
             {filterButtons && filterButtons.map(({ uuid, content, type }) => (
-              <button className={`py-3 px-4 font-poppins font-medium text-[16px] text-oldWhite bg-extra-gradient rounded-[10px] outline-none ${styles.clickFocus}`}
-                name={type} type="button" onClick={() => {setCat(type); setPage(1)}}>{content}</button>
+              <button className={`py-3 px-4 font-poppins font-medium text-[16px] text-oldWhite bg-extra-gradient rounded-[10px] outline-none ${cat == type ? styles.focused : "m-2"}`}
+                name={type} key={uuid} type="button" onClick={() => { setCat(type); setPage(1) }}>{content}</button>
             ))}
           </div>
-          <div id="offers" className={`flex-col`}>
+          <div id="offers" className={`flex-col mt-2 mb-5`}>
             {offers && offers.map((offer, index) => (
-              <OfferCard {...offer} key={offer.uuid} index={index}/>
+              <OfferCard {...offer} index={index} key={offer.uuid} />
             ))}
+          </div>
+          <div className="btn-group ml-3">
+            <button onClick={() => setPage(limitPagination(page, -1, totalNumberOfOffers))}
+              className="pr-5" disabled={leftButtonDisabled}>
+              <img src={leftArrow} className={`${leftButtonDisabled ? "" : styles.paginationEnd} w-[56x] h-[56px] object-contain`} />
+            </button>
+            <button onClick={() => setPage(limitPagination(page, 1, totalNumberOfOffers))}
+              className="pl-5" disabled={rightButtonDisabled}>
+              <img src={rightArrow} className={`${rightButtonDisabled ? "" : styles.paginationEnd} w-[56px] h-[56px] object-contain`} />
+            </button>
           </div>
         </>
       </div>

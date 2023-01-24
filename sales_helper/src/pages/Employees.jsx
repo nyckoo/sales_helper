@@ -1,4 +1,4 @@
-import { OffersList, UsersList } from "../components";
+import { UsersList } from "../components";
 
 const Employees = () => (
     <div>

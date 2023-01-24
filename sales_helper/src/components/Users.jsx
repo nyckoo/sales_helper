@@ -9,12 +9,12 @@ import { adduser, arrowDown, arrowUp, rightArrow, leftArrow, document_desc } fro
 
 const PageSize = 5;
 const limitPagination = (pageNr, change, totalNumber) => {
-  if(change < 0) {
-    return pageNr + change < 1 ? 1 : pageNr + change;
-  }
-  else{
-    return pageNr + change > Math.ceil(totalNumber/5) ? Math.ceil(totalNumber/5) : pageNr + change;
-  }
+    if (change < 0) {
+        return pageNr + change < 1 ? 1 : pageNr + change;
+    }
+    else {
+        return pageNr + change > Math.ceil(totalNumber / 5) ? Math.ceil(totalNumber / 5) : pageNr + change;
+    }
 };
 
 
@@ -62,10 +62,10 @@ const UsersList = () => {
             setUsers(data["results"]);
             setTotalNumberOfOffers(data["total_count"])
             setLeftButtonDisabled(
-                page==1
+                page == 1
             )
             setRightButtonDisabled(
-                page*PageSize >= data["total_count"]
+                page * PageSize >= data["total_count"]
             )
             console.log(leftButtonDisabled, rightButtonDisabled);
             console.log(totalNumberOfOffers);
@@ -86,26 +86,26 @@ const UsersList = () => {
                     <img src={adduser} className={`${styles.iconHover} mx-5 p-[4px] h-[64px] w-[64px] object-contain`} onClick={setModalOpen} />
                 </div>
                 {isModalOpen && <ModalAddUser isOpen={setModalOpen} />}
-                <div class="btn-group">
-                    <button onClick={() => setPage(limitPagination(page, -1, totalNumberOfOffers))} 
-                    className="pr-5" disabled={leftButtonDisabled}>
-                    <img src={leftArrow} className="w-[56x] h-[56px] object-contain" />
-                    </button>
-                    <button onClick={() => setPage(limitPagination(page, 1, totalNumberOfOffers))} 
-                    className="pl-5" disabled={rightButtonDisabled}>
-                    <img src={rightArrow} className="w-[56px] h-[56px] object-contain" />
-                    </button>
-                </div>
                 <div id="buttons" className={`flex-1 flex-row p-2 text-oldWhite w-screen`}>
                     {filterButtons && filterButtons.map(({ uuid, content, type }) => (
-                    <button className={`py-3 px-4 font-poppins font-medium text-[16px] text-oldWhite bg-extra-gradient rounded-[10px] outline-none ${styles.clickFocus}`}
-                        name={type} type="button" onClick={() => {setCat(type); setPage(1)}}>{content}</button>
+                        <button className={`py-3 px-4 font-poppins font-medium text-[16px] text-oldWhite bg-extra-gradient rounded-[10px] outline-none ${cat == type ? styles.focused : "m-2"}`}
+                            name={type} key={uuid} type="button" onClick={() => { setCat(type); setPage(1) }}>{content}</button>
                     ))}
                 </div>
-                <div className="flex-col">
+                <div className="flex-col mt-2 mb-5">
                     {users.map((user, index) => (
                         <UserCard key={user.id} {...user} index={index + 1} refreshOffers={getOffers} />
                     ))}
+                </div>
+                <div className="btn-group ml-3">
+                    <button onClick={() => setPage(limitPagination(page, -1, totalNumberOfOffers))}
+                        className="pr-5" disabled={leftButtonDisabled}>
+                        <img src={leftArrow} className="w-[56x] h-[56px] object-contain" />
+                    </button>
+                    <button onClick={() => setPage(limitPagination(page, 1, totalNumberOfOffers))}
+                        className="pl-5" disabled={rightButtonDisabled}>
+                        <img src={rightArrow} className="w-[56px] h-[56px] object-contain" />
+                    </button>
                 </div>
             </div>
         </section>
