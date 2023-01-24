@@ -100,11 +100,11 @@ const UsersList = () => {
                 <div className="btn-group ml-3">
                     <button onClick={() => setPage(limitPagination(page, -1, totalNumberOfOffers))}
                         className="pr-5" disabled={leftButtonDisabled}>
-                        <img src={leftArrow} className="w-[56x] h-[56px] object-contain" />
+                        <img src={leftArrow} className={`${leftButtonDisabled ? "" : styles.paginationEnd} w-[56x] h-[56px] object-contain`} />
                     </button>
                     <button onClick={() => setPage(limitPagination(page, 1, totalNumberOfOffers))}
                         className="pl-5" disabled={rightButtonDisabled}>
-                        <img src={rightArrow} className="w-[56px] h-[56px] object-contain" />
+                        <img src={rightArrow} className={`${rightButtonDisabled ? "" : styles.paginationEnd} w-[56px] h-[56px] object-contain`} />
                     </button>
                 </div>
             </div>
